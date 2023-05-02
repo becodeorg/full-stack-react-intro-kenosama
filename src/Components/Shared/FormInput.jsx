@@ -1,6 +1,6 @@
 import Slugify from "./Slugify";
 
-const CustomInput = (props) => {
+const FormInput = (props) => {
   const type = props.type ? props.type : "text"; 
   const name = props.name ? props.name: " ";
   const value = props.value ? props.value: null;
@@ -28,4 +28,4 @@ const CustomInput = (props) => {
   );
 };
 
-export default CustomInput;
+export default FormInput;
