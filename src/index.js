@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Todo from "./CGTPTodo.jsx"
+import Todo from "./Todo.jsx"
 import Header from './Components/Header';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

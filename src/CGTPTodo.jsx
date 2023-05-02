@@ -1,7 +1,7 @@
 // Import the necessary dependencies from React.
 import React, { useState } from "react";
 import FormInput from "./Components/FormInput";
-import Button from "./Components/Button";
+import Button from "./Components/Shared/Button";
 
 // Define a functional component called TodoList.
 function TodoList() {
@@ -51,6 +51,7 @@ function TodoList() {
       {/* Render a form element that triggers "handleAddTodo" on submit. */}
       <form onSubmit={handleAddTodo}>
         <FormInput type="text" name="ToDo" placeholder="test" />
+        <br />
         <Button type="submit" text="Add new Todo" />
       </form>
       {/* Render an unordered list of todo items, mapped from the "todos" state. */}

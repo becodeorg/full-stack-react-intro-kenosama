@@ -1,7 +1,8 @@
 //importing the necessary dependencies from React
 import React , { useState } from "react";
-import CustomInput from "./Components/FormInput";
-import Button from "./Components/Button";
+import CustomInput from "./Components/Shared/FormInput";
+import Button from "./Components/Shared/Button";
+import ListElement from "./Components/ListElement"
 //Creating the TodoList Component
 const TodoList= () =>{
     return (
@@ -18,9 +19,10 @@ const TodoList= () =>{
         </div>
         <div className="container">
             <ul>
-                <li>
-                    <input type="checkbox" value="0" name="isdone" id="" />
-                </li>
+              <ListElement name="TODO 1" />                
+              <ListElement name="TODO 2" />                
+              <ListElement name="TODO 3" />                
+              <ListElement name="TODO 4" />                
             </ul>
         </div>
       </div>
