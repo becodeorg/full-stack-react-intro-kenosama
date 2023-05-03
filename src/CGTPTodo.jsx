@@ -1,5 +1,5 @@
 // Import the necessary dependencies from React.
-import React, { useState } from "react";
+import { useRef } from "react";
 import FormInput from "./Components/FormInput";
 import Button from "./Components/Shared/Button";
 
