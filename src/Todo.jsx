@@ -1,13 +1,18 @@
 //importing the necessary dependencies from React
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Button from "./Components/Shared/Button";
 import ListElement from "./Components/ListElement"
 import Slugify from "./Components/Shared/Slugify";
+import CheckBox from "./Components/Shared/CheckedBox.jsx";
 //Creating the TodoList Component
 const TodoList= () =>{
 
   //creating the array of ToDos, and the variable for the input of the form where the data will be stored.
-  const Todos = ["learn React", "Master it", "get a job"];
+  const [ToDos, setToDos] = useState([
+    "learn React",
+    "Master it",
+    "get a Job"
+  ]);
   const contentRef = useRef();
   //variables for the form
   const type = "text";
@@ -19,7 +24,17 @@ const TodoList= () =>{
     e.preventDefault();
     const postedFormRef = contentRef.current.value
     console.log(postedFormRef)
+
+    const newToDos = [...ToDos];
+    newToDos.push(postedFormRef);
+    setToDos(newToDos);
   };
+
+  const deleteToDo = (e)=>{
+    e.preventDefault();
+
+  };
+
   
 
 
@@ -39,10 +54,15 @@ const TodoList= () =>{
           </form>
         </div>
         <div className="container">
-          <h1>The Todos</h1>
+          <h1>The To do's</h1>
           <ul>
-            {Todos.map((todo) => (
-              <ListElement name={todo} />
+            {ToDos.map((todo, index) => (
+              <li key={index}>
+                &nbsp;
+                <input type="checkbox" value="0" name={todo} id={index} onClick={deleteToDo}/>
+                &nbsp;
+                {todo}
+              </li>
             ))}
           </ul>
         </div>
