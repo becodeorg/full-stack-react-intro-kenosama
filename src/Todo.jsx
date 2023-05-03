@@ -8,11 +8,12 @@ const LSKEY = "MyTodoApp";
 //Creating the TodoList Component
 const TodoList = () => {
   //Get doc from localStorage
-  useEffect(() => {
-    const storedToDos =
-      JSON.parse(localStorage.getItem(LSKEY + ".ToDos")) || [];
-    if (storedToDos.length > 0) setToDos(storedToDos);
-  }, []);
+useEffect(() => {
+  // Get the todos from the local storage
+  const storedToDos = JSON.parse(localStorage.getItem(LSKEY + ".ToDos")) || [];
+  // If there are stored todos, update the state with them
+  if (storedToDos.length > 0) setToDos(storedToDos);
+}, []);
 
   const [ToDos, setToDos] = useState([]);
 

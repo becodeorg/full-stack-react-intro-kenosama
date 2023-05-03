@@ -1,5 +1,7 @@
 # The Todo app :) 
 
+<details>
+  <summary> Detail of the first day </summary>
 For this moment, we have to make a ToDo app stored locally,
 
 On **the first day**, we have to understand the principle of Components and how to insert it into the App. 
@@ -124,3 +126,95 @@ The `ListElement` component is used to create an unordered list of todos. Four `
 The component does not have any functionality yet, but it provides a basic structure for a todo list application. 
 
 That's it! This component is simple, but it can be expanded to create a functional todo list application.
+</details>
+
+<details>
+<summary> detail of the second day </summary>
+My Todo App is a simple application where you can write down things you need to do and mark them as done when you finish them.
+
+## How to use it?
+Type your task in the input field.
+Click the "Add todo" button to add it to the list.
+Click the checkbox next to the task when you finish it to mark it as done.
+Click the "Delete" button to remove the task from the list.
+How it works?
+When you add a task, it gets saved to your browser's local storage, so even if you close the tab or the browser, your tasks will be there when you come back.
+
+Let's see some code examples:
+
+<details>
+<summary>Getting the saved tasks from local storage</summary>
+
+```jsx
+useEffect(() => {
+  // Get the todos from the local storage or make an empty array
+  const storedToDos = JSON.parse(localStorage.getItem(LSKEY + ".ToDos")) || [];
+  // If there are stored todos, update the state with them
+  if (storedToDos.length > 0) setToDos(storedToDos);
+}, []);
+```
+This code uses useEffect hook to get the tasks from local storage when the component mounts.
+
+</details>
+
+<details>
+<summary>Saving tasks to local storage</summary>
+
+```jsx
+useEffect(() => {
+  window.localStorage.setItem(LSKEY + ".ToDos", JSON.stringify(ToDos));
+}, [ToDos]);
+```
+This code uses useEffect hook to save the tasks to local storage every time the tasks state changes.
+
+</details>
+<details>
+<summary>Adding a new task to the list</summary>
+
+```jsx
+const handleSubmitForm = (e) => {
+  e.preventDefault();
+  const postedFormRef = contentRef.current.value;
+  console.log(postedFormRef);
+  const id = uuidv4();
+  const newToDos = {
+    text: postedFormRef,
+    done: false,
+    id: id,
+  };
+  setToDos([...ToDos, newToDos]);
+  contentRef.current.value = "";
+};
+```
+This code handles the form submission and creates a new task object with a unique ID using the uuidv4 library. It then adds the new task to the tasks array using the setToDos function.
+
+</details>
+<details>
+<summary>Marking a task as done</summary>
+
+```jsx
+const handleChecked = (index) => {
+  const newToDos = [...ToDos];
+  newToDos[index].done = !newToDos[index].done;
+  setToDos(newToDos);
+};
+```
+This code toggles the done property of a task when the checkbox next to it is clicked.
+
+</details>
+<details>
+<summary>Removing a task from the list</summary>
+
+```jsx
+const handleDelete = (index) => {
+  const newToDos = [...ToDos];
+  newToDos.splice(index, 1);
+  setToDos(newToDos);
+};
+```
+This code removes a task from the tasks array when the "Delete" button next to it is clicked.
+
+</details>
+
+
+</details>
