@@ -48,9 +48,13 @@ const handleValueChange = (newValue) => {
       text: postedFormRef,
       done: false,
       id: id,
+      startDate: value.startDate,
+      endDate: value.endDate
+
     };
     setToDos([...ToDos, newToDos]);
 
+    console.log(newToDos)
     contentRef.current.value = "";
   };
 
@@ -72,11 +76,17 @@ const handleValueChange = (newValue) => {
   };
 
   return (
-    <div>
+    <div className=" h-screen">
       <div id="container">
         <form onSubmit={handleSubmitForm}>
           <div id="labed-input" className="mb-2 w-auto">
-            <label className="text-slate-800 dark:text-slate-200" htmlFor={label}>{name}:</label> &nbsp;
+            <label
+              className="text-slate-800 dark:text-slate-200"
+              htmlFor={label}
+            >
+              {name}:
+            </label>{" "}
+            &nbsp;
             <input
               className="form-input px-4 rounded-lg mr-2 hover:outline hover:outline-offset-1 hover:outline-pink-300 border-slate-300 focus:ring focus:ring-pink-200 focus:border-pink-300"
               type={type}
@@ -107,30 +117,49 @@ const handleValueChange = (newValue) => {
         </form>
       </div>
       <div className="my-5">
-        <h1>The To do's</h1>
-        <ul>
-          {ToDos.map((todo, index) => (
-            <li key={todo.id}>
-              <input
-                type="checkbox"
-                value={todo.done}
-                name={Slugify(todo.text)}
-                id={todo.id}
-                onChange={() => handleChecked(index)}
-              />
-              &nbsp;
-              <span
-                style={{
-                  textDecoration: todo.done ? "line-through" : "none",
-                }}
-              >
-                {todo.text}
-              </span>
-              &nbsp;&nbsp;
-              <button onClick={() => handleDelete(index)}>Delete</button>
-            </li>
-          ))}
-        </ul>
+        <h1 className=" text-2xl font-bold underline underline-offset-4 mb-4 text-gray-950 dark:text-gray-50">
+          The To do's
+        </h1>
+        <table className="w-screen">
+          <thead className=" bg-pink-100 dark:bg-pink-800 text-gray-950 dark:text-gray-50">
+            <tr>
+              <th>Done?</th>
+              <th>Description</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ToDos.map((todo, index) => (
+              <tr>
+                <th>
+                  <input
+                    type="checkbox"
+                    value={todo.done}
+                    name={Slugify(todo.text)}
+                    id={todo.id}
+                    onChange={() => handleChecked(index)}
+                  />
+                </th>
+                <th>
+                  <span
+                    style={{
+                      textDecoration: todo.done ? "line-through" : "none",
+                    }}
+                  >
+                    {todo.text}
+                  </span>
+                </th>
+                <th>{todo.startDate}</th>
+                <th>{todo.endDate}</th>
+                <th>
+                  <button onClick={() => handleDelete(index)}>Delete</button>
+                </th>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
