@@ -218,3 +218,61 @@ This code removes a task from the tasks array when the "Delete" button next to i
 
 
 </details>
+
+<details>
+<summary>What happened the third day</summary>
+
+# First thing First
+My girlfriend saw the app and wanted one for herself... and with color choices specific for her. i'm not responsible for the girly theme. 
+
+For that i changed the CSS framework newCSS for Tailwind which offers more possibilities.
+
+
+# Todo.jsx
+
+This is a file containing code for a "Todo" component in a web application. The "Todo" component allows users to add, edit, and delete tasks that they need to complete.
+
+## Getting Started
+
+The code begins by importing necessary dependencies from React, including `useRef`, `useState`, and `useEffect`. It also imports a `Slugify` component, a `uuidv4` function from the `uuid` package, and two custom components, `Table` and `Calendar`. These dependencies allow the component to function properly.
+
+The `TodoList` component is then created. This component contains the logic for the "Todo" functionality. It starts by getting any previously saved "todos" from local storage using the `useEffect` hook. If any "todos" are found, they are loaded into the state. 
+
+Next, the component sets up a datepicker with `react-tailwindcss-datepicker`. The `useState` hook is used to keep track of the selected date or date range and the placeholder text. 
+
+After that, the `useRef` hook is used to create a reference to the input field for adding a new "todo". 
+
+There are two more `useEffect` hooks used in the code. One saves any changes to the "todos" state to local storage, and the other updates the placeholder text when the date or date range is changed. 
+
+The `handleSubmitForm` function is called when the user submits the form for adding a new "todo". It checks that all required fields are filled out and then creates a new "todo" object using the `uuidv4` function to generate a unique ID. This new "todo" is then added to the existing "todos" using the `setToDos` function. 
+
+The `handleChecked` function is called when the user checks or unchecks a "todo" from the list. It updates the `done` property of the "todo" object with the new status. 
+
+Finally, the `handleDelete` function is called when the user deletes a "todo" from the list. It removes the "todo" from the "todos" state using the `splice` method.
+
+## Usage
+
+This component can be used in a web application to create a "Todo" functionality, where users can add, edit, and delete tasks that they need to complete. It uses a simple form for adding new tasks and provides a way to check off completed tasks and delete tasks that are no longer needed.
+
+To use this component in a web application, import it using `import TodoList from './Todo.jsx'` and include it in the JSX code where you want the "Todo" functionality to be displayed.
+
+# Table.jsx
+
+This file contains code for a `Table` component in a web application that displays a list of "todos" that the user has added. 
+
+## Getting Started
+
+The component takes in three props: `ToDos`, `handleChecked`, and `handleDelete`. `ToDos` is an array of all the "todos" that the user has added. `handleChecked` is a function that updates the `done` property of a "todo" when the user checks or unchecks the corresponding checkbox. `handleDelete` is a function that deletes a "todo" from the list when the user clicks the corresponding delete button.
+
+## Usage
+
+The `Table` component is used to display the list of "todos" that the user has added. It creates a table with five columns: "Done?", "Description", "Start Date", "End Date", and "Delete". Each row in the table represents a "todo" that the user has added.
+
+The `daysBeforeDeadline` function is used to calculate how many days are left before the "todo" is due. If the "todo" is due in the future, it will display the number of days remaining until the due date. If the "todo" is due today, it will display "today". If the due date has already passed, it will display the number of days since the due date.
+
+The `isEven` function is used to determine whether the index of a row in the table is even or odd. This is used to alternate the background color of each row.
+
+The `Table` component maps over the `ToDos` array and creates a row in the table for each "todo". Each row contains a checkbox that the user can check or uncheck to mark the "todo" as done, the description of the "todo", the start date, the end date, and a delete button. The description, start date, and end date are displayed with strikethrough text if the "todo" has been marked as done.
+
+To use this component in a web application, import it using `import Table from './Table.jsx'` and include it in the JSX code where you want the list of "todos" to be displayed.
+</details>
