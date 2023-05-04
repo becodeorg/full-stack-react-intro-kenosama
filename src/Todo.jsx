@@ -20,8 +20,8 @@ const TodoList = () => {
 
   //datepicker config
   const [value, setValue] = useState({
-    startDate: new Date(),
-    endDate: new Date().setMonth(11),
+    startDate: null,
+    endDate: null,
   });
   const handleValueChange = (newValue) => {
     setValue(newValue);
@@ -97,7 +97,10 @@ const TodoList = () => {
 
   return (
     <div className=" h-screen ">
-      <div id="container" className="bg-white-100 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-20 border border-gray-100 p-5 z-10">
+      <div
+        id="container"
+        className="bg-white-100 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-20 border border-gray-100 p-5 z-10 mb-4"
+      >
         <form onSubmit={handleSubmitForm}>
           <div id="labed-input" className="mb-2 w-auto">
             <label
@@ -136,11 +139,14 @@ const TodoList = () => {
           </div>
         </form>
       </div>
-      <Table
-        ToDos={ToDos}
-        handleChecked={handleChecked}
-        handleDelete={handleDelete}
-      />
+      {ToDos.length === 0 ? null : (
+        <Table
+          ToDos={ToDos}
+          handleChecked={handleChecked}
+          handleDelete={handleDelete}
+        />
+      )}
+
       <Calendar />
     </div>
   );
