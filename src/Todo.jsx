@@ -4,6 +4,7 @@ import Slugify from "./Components/Shared/Slugify";
 import { v4 as uuidv4 } from "uuid";
 import Datepicker from "react-tailwindcss-datepicker";
 import Table from "./Components/Table.jsx";
+import Calendar from "./Components/Calendar.jsx";
 
 const LSKEY = "MyTodoApp";
 //Creating the TodoList Component
@@ -162,7 +163,7 @@ const TodoList = () => {
           <div id="button" className=" self-center items-center mt-2">
             <button
               type="submit"
-              className="rounded-md bg-rose-200 p-2 hover:bg-rose-500 hover:text-slate-100  dark:bg-rose-600  dark:hover:bg-rose-500 dark:text-slate-100 font-bold"
+              className="rounded-md bg-rose-200 p-2 mt-3 hover:bg-rose-500 hover:text-slate-100  dark:bg-rose-600  dark:hover:bg-rose-500 dark:text-slate-100 font-bold"
             >
               Add todo
             </button>
@@ -174,6 +175,7 @@ const TodoList = () => {
         handleChecked={handleChecked}
         handleDelete={handleDelete}
       />
+      <Calendar />
     </div>
   );
 };
