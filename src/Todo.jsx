@@ -24,42 +24,12 @@ const TodoList = () => {
     endDate: new Date().setMonth(11),
   });
   const handleValueChange = (newValue) => {
-    console.log("newValue:", newValue);
     setValue(newValue);
   };
 
   const [placeholderText, setPlaceholderText] = useState(
     "Choose the date/range of date needed"
   );
-
-  const isEven = (num) => {
-    return num % 2 === 0;
-  };
-
-  //Table class properties
-  const TrLight =
-    "bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-normal text-base";
-  const TrDark =
-    "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-normal text-base";
-
-  //Deadline Calculator
-  function daysBeforeDeadline(endDate) {
-    // Convertir la date en millisecondes depuis l'époque UNIX
-    const endTime = new Date(endDate).getTime();
-    // Calculer le nombre de millisecondes entre la date de fin et aujourd'hui
-    const timeDiff = endTime - Date.now();
-    // Calculer le nombre de jours restants avant la date de fin
-    const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-    // Déterminer le message à afficher en fonction du nombre de jours restants
-    if (daysRemaining > 0) {
-      return `${daysRemaining} day(s) before due`;
-    } else if (daysRemaining === 0) {
-      return "due date is today";
-    } else {
-      const daysSince = -daysRemaining;
-      return `Due date was ${daysSince} ago`;
-    }
-  }
 
   //UseState for the ToDos
   const [ToDos, setToDos] = useState([]);
@@ -100,7 +70,6 @@ const TodoList = () => {
     };
     setToDos([...ToDos, newToDos]);
 
-    console.log(newToDos);
     contentRef.current.value = "";
     setValue({
       startDate: null,
@@ -128,10 +97,7 @@ const TodoList = () => {
 
   return (
     <div className=" h-screen ">
-      <div
-        id="container"
-        className="bg-white-100 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-20 border border-gray-100 p-5"
-      >
+      <div id="container" className="bg-white-100 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-20 border border-gray-100 p-5 z-10">
         <form onSubmit={handleSubmitForm}>
           <div id="labed-input" className="mb-2 w-auto">
             <label

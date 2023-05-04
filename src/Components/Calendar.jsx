@@ -12,10 +12,11 @@ import {
   startOfWeek,
 } from "date-fns";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
-
 import { useState } from "react";
+import { capitalizeFirstLetter } from "./utils/functions.js";
 
-function App() {
+
+function Calendar() {
   const today = startOfToday();
   const days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
   const colStartClasses = [
@@ -51,7 +52,7 @@ function App() {
   return (
     <div
       id="container "
-      className="text-gray-900 dark:text-gray-50 bg-white-100 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-20 border border-gray-100">
+      className="text-gray-900 dark:text-gray-50  border border-gray-100 z-0">
       <div className="flex items-center justify-center p-4">
         <div className=" ">
           <div className="flex items-center justify-between">
@@ -74,7 +75,7 @@ function App() {
             {days.map((day, idx) => {
               return (
                 <div key={idx} className="font-semibold">
-                  {day}
+                  {capitalizeFirstLetter(day)}
                 </div>
               );
             })}
@@ -87,7 +88,7 @@ function App() {
                     className={`cursor-pointer flex items-center justify-center font-semibold h-8 w-8 rounded-full  hover:text-white ${
                       isSameMonth(day, today)
                         ? "text-gray-950 dark:text-gray-50"
-                        : "text-gray-400"
+                        : "text-gray-700 dark:text-gray-400"
                     } ${!isToday(day) && "hover:bg-blue-500"} ${
                       isToday(day) && "bg-red-500 text-white"
                     }`}
@@ -104,4 +105,4 @@ function App() {
   );
 }
 
-export default App;
+export default Calendar;

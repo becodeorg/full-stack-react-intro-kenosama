@@ -34,9 +34,11 @@ const Table = ({ ToDos, handleChecked, handleDelete }) => {
   }
 
   return (
-    <div className="my-5 bg-white-100 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-20 border border-gray-100 py-6">
+    <div className="my-5  border border-gray-100 py-6 z-0">
       <h1 className=" text-2xl font-bold underline underline-offset-4 mb-4 text-gray-950 dark:text-gray-50 ml-4">
-        The To Do's
+        {ToDos.length === 0
+          ? "Create a To Do"
+          : "List of To Do's"}
       </h1>
       <table className="w-screen table-auto border-separate border-spacing-2 border border-slate-500">
         <thead className=" bg-pink-100 dark:bg-pink-800 text-gray-950 dark:text-gray-50">
