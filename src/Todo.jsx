@@ -125,9 +125,11 @@ const TodoList = () => {
             primaryColor={"rose"}
             placeholder={placeholderText}
             separator={"~"}
-            showShortcuts={true}
-            showFooter={true}
+            showShortcuts={false}
+            showFooter={false}
             displayFormat={"DD/MM/YYYY"}
+            useRange={false}
+            asSingle={false} 
           />
           <div id="button" className=" self-center items-center mt-2">
             <button
