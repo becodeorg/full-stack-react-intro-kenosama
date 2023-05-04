@@ -2,32 +2,68 @@
 import { useRef, useState, useEffect } from "react";
 import Slugify from "./Components/Shared/Slugify";
 import { v4 as uuidv4 } from "uuid";
-import Datepicker from "react-tailwindcss-datepicker"; 
+import Datepicker from "react-tailwindcss-datepicker";
 
 const LSKEY = "MyTodoApp";
 //Creating the TodoList Component
 const TodoList = () => {
   //Get doc from localStorage
-useEffect(() => {
-  // Get the todos from the local storage
-  const storedToDos = JSON.parse(localStorage.getItem(LSKEY + ".ToDos")) || [];
-  // If there are stored todos, update the state with them
-  if (storedToDos.length > 0) setToDos(storedToDos);
-}, []);
+  useEffect(() => {
+    // Get the todos from the local storage
+    const storedToDos =
+      JSON.parse(localStorage.getItem(LSKEY + ".ToDos")) || [];
+    // If there are stored todos, update the state with them
+    if (storedToDos.length > 0) setToDos(storedToDos);
+  }, []);
 
-//datepicker config
-const [value, setValue] = useState({
-  startDate: new Date(),
-  endDate: new Date().setMonth(11),
-}); 
-const handleValueChange = (newValue) => {
-  console.log("newValue:", newValue);
-  setValue(newValue);
-}; 
+  //datepicker config
+  const [value, setValue] = useState({
+    startDate: new Date(),
+    endDate: new Date().setMonth(11),
+  });
+  const handleValueChange = (newValue) => {
+    console.log("newValue:", newValue);
+    setValue(newValue);
+  };
 
+  const [placeholderText, setPlaceholderText] = useState(
+    "Choose the date/range of date needed"
+  );
+
+  const isEven = (num) => {
+    return num % 2 === 0;
+  };
+
+  //Table class properties
+  const TrLight =
+    "bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-normal text-base";
+  const TrDark =
+    "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-normal text-base";
+
+  //Deadline Calculator
+  function daysBeforeDeadline(endDate) {
+    // Convertir la date en millisecondes depuis l'époque UNIX
+    const endTime = new Date(endDate).getTime();
+    // Calculer le nombre de millisecondes entre la date de fin et aujourd'hui
+    const timeDiff = endTime - Date.now();
+    // Calculer le nombre de jours restants avant la date de fin
+    const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+    // Déterminer le message à afficher en fonction du nombre de jours restants
+    if (daysRemaining > 0) {
+      return `${daysRemaining} day(s) before due`;
+    } else if (daysRemaining === 0) {
+      return "due date is today";
+    } else {
+      const daysSince = -daysRemaining;
+      return `Due date was ${daysSince} ago`;
+    }
+  }
+
+  //UseState for the ToDos
   const [ToDos, setToDos] = useState([]);
 
   const contentRef = useRef();
+
   //variables for the form
   const type = "text";
   const name = "ToDo";
@@ -41,21 +77,34 @@ const handleValueChange = (newValue) => {
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
-    const postedFormRef = contentRef.current.value;
-    console.log(postedFormRef);
+
+    const todoText = contentRef.current.value;
+    const startDate = value.startDate;
+    const endDate = value.endDate;
+
+    if (!todoText || !startDate || !endDate) {
+      // Display an error message to the user
+      alert("Please fill out all fields and select a valid date range.");
+      return;
+    }
+
     const id = uuidv4();
     const newToDos = {
-      text: postedFormRef,
+      text: todoText,
       done: false,
       id: id,
-      startDate: value.startDate,
-      endDate: value.endDate
-
+      startDate: startDate,
+      endDate: endDate,
     };
     setToDos([...ToDos, newToDos]);
 
-    console.log(newToDos)
+    console.log(newToDos);
     contentRef.current.value = "";
+    setValue({
+      startDate: null,
+      endDate: null,
+    });
+    setPlaceholderText("Choose the date/range of date needed");
   };
 
   const handleChecked = (index) => {
@@ -100,7 +149,7 @@ const handleValueChange = (newValue) => {
             value={value}
             onChange={handleValueChange}
             primaryColor={"pink"}
-            placeholder={"Choose the date/range of date needed"}
+            placeholder={placeholderText}
             separator={"~"}
             showShortcuts={true}
             showFooter={true}
@@ -120,7 +169,7 @@ const handleValueChange = (newValue) => {
         <h1 className=" text-2xl font-bold underline underline-offset-4 mb-4 text-gray-950 dark:text-gray-50">
           The To do's
         </h1>
-        <table className="w-screen">
+        <table className="w-screen table-auto">
           <thead className=" bg-pink-100 dark:bg-pink-800 text-gray-950 dark:text-gray-50">
             <tr>
               <th>Done?</th>
@@ -130,9 +179,9 @@ const handleValueChange = (newValue) => {
               <th>Delete</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="text-gray-950 dark:text-gray-50">
             {ToDos.map((todo, index) => (
-              <tr>
+              <tr className={isEven(index) ? TrLight : TrDark} key={index}>
                 <th>
                   <input
                     type="checkbox"
@@ -151,8 +200,24 @@ const handleValueChange = (newValue) => {
                     {todo.text}
                   </span>
                 </th>
-                <th>{todo.startDate}</th>
-                <th>{todo.endDate}</th>
+                <th>
+                  <span
+                    style={{
+                      textDecoration: todo.done ? "line-through" : "none",
+                    }}
+                  >
+                    {todo.startDate}
+                  </span>
+                </th>
+                <th>
+                  <span
+                    style={{
+                      textDecoration: todo.done ? "line-through" : "none",
+                    }}
+                  >
+                    {daysBeforeDeadline(todo.endDate)}
+                  </span>
+                </th>
                 <th>
                   <button onClick={() => handleDelete(index)}>Delete</button>
                 </th>
