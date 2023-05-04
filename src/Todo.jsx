@@ -3,6 +3,7 @@ import { useRef, useState, useEffect } from "react";
 import Slugify from "./Components/Shared/Slugify";
 import { v4 as uuidv4 } from "uuid";
 import Datepicker from "react-tailwindcss-datepicker";
+import Table from "./Components/Table.jsx";
 
 const LSKEY = "MyTodoApp";
 //Creating the TodoList Component
@@ -158,74 +159,14 @@ const TodoList = () => {
           <div id="button" className=" self-center items-center mt-2">
             <button
               type="submit"
-              className="rounded-md bg-pink-200 p-2 hover:bg-pink-500 hover:text-slate-100"
+              className="rounded-md bg-rose-200 p-2 hover:bg-rose-500 hover:text-slate-100"
             >
               Add todo
             </button>
           </div>
         </form>
       </div>
-      <div className="my-5">
-        <h1 className=" text-2xl font-bold underline underline-offset-4 mb-4 text-gray-950 dark:text-gray-50">
-          The To do's
-        </h1>
-        <table className="w-screen table-auto">
-          <thead className=" bg-pink-100 dark:bg-pink-800 text-gray-950 dark:text-gray-50">
-            <tr>
-              <th>Done?</th>
-              <th>Description</th>
-              <th>Start Date</th>
-              <th>End Date</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody className="text-gray-950 dark:text-gray-50">
-            {ToDos.map((todo, index) => (
-              <tr className={isEven(index) ? TrLight : TrDark} key={index}>
-                <th>
-                  <input
-                    type="checkbox"
-                    value={todo.done}
-                    name={Slugify(todo.text)}
-                    id={todo.id}
-                    onChange={() => handleChecked(index)}
-                  />
-                </th>
-                <th>
-                  <span
-                    style={{
-                      textDecoration: todo.done ? "line-through" : "none",
-                    }}
-                  >
-                    {todo.text}
-                  </span>
-                </th>
-                <th>
-                  <span
-                    style={{
-                      textDecoration: todo.done ? "line-through" : "none",
-                    }}
-                  >
-                    {todo.startDate}
-                  </span>
-                </th>
-                <th>
-                  <span
-                    style={{
-                      textDecoration: todo.done ? "line-through" : "none",
-                    }}
-                  >
-                    {daysBeforeDeadline(todo.endDate)}
-                  </span>
-                </th>
-                <th>
-                  <button onClick={() => handleDelete(index)}>Delete</button>
-                </th>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <Table ToDos={ToDos} handleChecked={handleChecked} handleDelete={handleDelete}/>
     </div>
   );
 };
