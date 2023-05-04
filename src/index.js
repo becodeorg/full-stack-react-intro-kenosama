@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import Todo from "./Todo"
 import Header from './Components/Header';
 import Footer from './Components/Footer';
+import "./input.css";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
