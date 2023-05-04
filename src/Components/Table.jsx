@@ -10,9 +10,9 @@ const Table = ({ ToDos, handleChecked, handleDelete }) => {
 
   //Table class properties
   const TrLight =
-    "bg-gray-50 dark:bg-gray-600 text-gray-900 dark:text-gray-100 font-normal text-base";
+    "bg-gray-50 dark:bg-gray-600 text-gray-900 dark:text-gray-100 font-normal text-base border border-slate-500";
   const TrDark =
-    "bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-normal text-base";
+    "bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-normal text-base border border-slate-500";
 
   //Deadline Calculator
   function daysBeforeDeadline(endDate) {
@@ -34,24 +34,24 @@ const Table = ({ ToDos, handleChecked, handleDelete }) => {
   }
 
   return (
-    <div className="my-5">
-      <h1 className=" text-2xl font-bold underline underline-offset-4 mb-4 text-gray-950 dark:text-gray-50">
+    <div className="my-5 bg-white-100 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-20 border border-gray-100 py-6">
+      <h1 className=" text-2xl font-bold underline underline-offset-4 mb-4 text-gray-950 dark:text-gray-50 ml-4">
         The To Do's
       </h1>
       <table className="w-screen table-auto border-separate border-spacing-2 border border-slate-500">
         <thead className=" bg-pink-100 dark:bg-pink-800 text-gray-950 dark:text-gray-50">
           <tr>
-            <th className="border border-slate-500">Done?</th>
-            <th className="border border-slate-500">Description</th>
-            <th className="border border-slate-500">Start Date</th>
-            <th className="border border-slate-500">End Date</th>
-            <th className="border border-slate-500">Delete</th>
+            <th>Done?</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody className="text-gray-950 dark:text-gray-50">
           {ToDos.map((todo, index) => (
-            <tr className={isEven(index) ? TrLight : TrDark} key={index}>
-              <th className="border border-slate-500">
+            <tr key={index}>
+              <th className={isEven(index) ? TrLight : TrDark}>
                 <input
                   type="checkbox"
                   value={todo.done}
@@ -60,7 +60,7 @@ const Table = ({ ToDos, handleChecked, handleDelete }) => {
                   onChange={() => handleChecked(index)}
                 />
               </th>
-              <th className="border border-slate-500">
+              <th className={isEven(index) ? TrLight : TrDark}>
                 <span
                   style={{
                     textDecoration: todo.done ? "line-through" : "none",
@@ -69,7 +69,7 @@ const Table = ({ ToDos, handleChecked, handleDelete }) => {
                   {todo.text}
                 </span>
               </th>
-              <th className="border border-slate-500">
+              <th className={isEven(index) ? TrLight : TrDark}>
                 <span
                   style={{
                     textDecoration: todo.done ? "line-through" : "none",
@@ -78,7 +78,7 @@ const Table = ({ ToDos, handleChecked, handleDelete }) => {
                   {daysBeforeDeadline(todo.startDate)}
                 </span>
               </th>
-              <th className="border border-slate-500">
+              <th className={isEven(index) ? TrLight : TrDark}>
                 <span
                   style={{
                     textDecoration: todo.done ? "line-through" : "none",
@@ -87,8 +87,13 @@ const Table = ({ ToDos, handleChecked, handleDelete }) => {
                   {daysBeforeDeadline(todo.endDate)}
                 </span>
               </th>
-              <th >
-                <button onClick={() => handleDelete(index)} className="p-2 bg-rose-500 rounded-xl border border-red-950 my-1">Delete</button>
+              <th>
+                <button
+                  onClick={() => handleDelete(index)}
+                  className="p-2 bg-rose-500 rounded-xl border border-red-950 my-1 text-gray-50"
+                >
+                  Delete
+                </button>
               </th>
             </tr>
           ))}

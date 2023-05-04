@@ -126,8 +126,11 @@ const TodoList = () => {
   };
 
   return (
-    <div className=" h-screen">
-      <div id="container">
+    <div className=" h-screen ">
+      <div
+        id="container"
+        className="bg-white-100 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-20 border border-gray-100 p-5"
+      >
         <form onSubmit={handleSubmitForm}>
           <div id="labed-input" className="mb-2 w-auto">
             <label
@@ -138,7 +141,7 @@ const TodoList = () => {
             </label>{" "}
             &nbsp;
             <input
-              className="form-input px-4 rounded-lg mr-2 hover:outline hover:outline-offset-1 hover:outline-pink-300 border-slate-300 focus:ring focus:ring-pink-200 focus:border-pink-300"
+              className="form-input px-4 rounded-lg mr-2 border-rose-300  hover:outline hover:outline-offset-1 hover:outline-rose-300 focus:ring focus:ring-rose-200 focus:border-rose-400 dark:border-rose-700    dark:hover:outline-rose-700  dark:focus:ring-rose-800 dark:focus:border-rose-800 placeholder:text-gray-400 placeholder:text-sm"
               type={type}
               name={name}
               id={Slugify(name)}
@@ -149,7 +152,7 @@ const TodoList = () => {
           <Datepicker
             value={value}
             onChange={handleValueChange}
-            primaryColor={"pink"}
+            primaryColor={"rose"}
             placeholder={placeholderText}
             separator={"~"}
             showShortcuts={true}
@@ -159,14 +162,18 @@ const TodoList = () => {
           <div id="button" className=" self-center items-center mt-2">
             <button
               type="submit"
-              className="rounded-md bg-rose-200 p-2 hover:bg-rose-500 hover:text-slate-100"
+              className="rounded-md bg-rose-200 p-2 hover:bg-rose-500 hover:text-slate-100  dark:bg-rose-600  dark:hover:bg-rose-500 dark:text-slate-100 font-bold"
             >
               Add todo
             </button>
           </div>
         </form>
       </div>
-      <Table ToDos={ToDos} handleChecked={handleChecked} handleDelete={handleDelete}/>
+      <Table
+        ToDos={ToDos}
+        handleChecked={handleChecked}
+        handleDelete={handleDelete}
+      />
     </div>
   );
 };
