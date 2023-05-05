@@ -1,5 +1,7 @@
 # The Todo app :) 
 
+a live version is visible [HERE](https://kenosama-react-todo.netlify.app/)
+
 <details>
   <summary> Detail of the first day </summary>
 For this moment, we have to make a ToDo app stored locally,

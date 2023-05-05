@@ -91,6 +91,8 @@ const TodoList = () => {
       id: id,
       start: startDate,
       end: endDate,
+      startBig: new Date(startDate),
+      endBig: new Date(endDate),
     };
     setToDos([...ToDos, newToDos]);
 
@@ -99,6 +101,7 @@ const TodoList = () => {
       startDate: null,
       endDate: null,
     });
+    console.log(newToDos)
     setPlaceholderText("Choose the date/range of date needed");
   };
 
@@ -183,8 +186,8 @@ const TodoList = () => {
           <Calendar
             localizer={localizer}
             events={ToDos}
-            startAccessor="start"
-            endAccessor="end"
+            startAccessor="startBig"
+            endAccessor="endBig"
             style={{ height: 500, zIndex: "1", position: "relative" }}
           />
         </div>
