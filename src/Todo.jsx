@@ -57,6 +57,9 @@ const TodoList = () => {
 
   const contentRef = useRef();
 
+  //UseState for display the calendar or not
+  const [showCalendar, setShowCalendar] = useState(false);
+
   //variables for the form
   const type = "text";
   const name = "ToDo";
@@ -116,11 +119,15 @@ const TodoList = () => {
     setToDos(newToDos);
   };
 
+  const toggleListOrCalendar = () => {
+    setShowCalendar(!showCalendar);
+  };
+
   return (
     <div className=" h-screen ">
       <div
         id="container"
-        className="bg-white-100 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-20 border border-gray-100 p-5 z-10 mb-4"
+        className="bg-white-100 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-20 border border-gray-100 p-5 z-10 mb-10"
       >
         <form onSubmit={handleSubmitForm}>
           <div id="labed-input" className="mb-2 w-auto">
@@ -140,18 +147,21 @@ const TodoList = () => {
               placeholder={placeholder}
             />
           </div>
-          <Datepicker
-            value={value}
-            onChange={handleValueChange}
-            primaryColor={"rose"}
-            placeholder={placeholderText}
-            separator={"~"}
-            showShortcuts={false}
-            showFooter={false}
-            displayFormat={"DD/MM/YYYY"}
-            useRange={false}
-            asSingle={false}
-          />
+          <div className=" z-20">
+            <Datepicker
+              value={value}
+              onChange={handleValueChange}
+              primaryColor={"rose"}
+              placeholder={placeholderText}
+              popoverDirection="down"
+              separator={"~"}
+              showShortcuts={false}
+              showFooter={false}
+              displayFormat={"DD/MM/YYYY"}
+              useRange={false}
+              asSingle={false}
+            />
+          </div>
           <div id="button" className=" self-center items-center mt-2">
             <button
               type="submit"
@@ -161,25 +171,34 @@ const TodoList = () => {
             </button>
           </div>
         </form>
+        <button
+          className="rounded-md bg-rose-200 p-2 mt-3 hover:bg-rose-500 hover:text-slate-100  dark:bg-rose-600  dark:hover:bg-rose-500 dark:text-slate-100 font-bold"
+          onClick={toggleListOrCalendar}
+        >
+          {showCalendar ? "Show todo list" : "Show calendar"}
+        </button>
       </div>
-      {ToDos.length === 0 ? null : (
-        <Table
-          ToDos={ToDos}
-          handleChecked={handleChecked}
-          handleDelete={handleDelete}
-        />
+      {showCalendar ? (
+        <div className="mt-72 bg-white-100 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md bg-opacity-20 border border-gray-100 p-5 z-0 mb-4">
+          <Calendar
+            localizer={localizer}
+            events={ToDos}
+            startAccessor="start"
+            endAccessor="end"
+            style={{ height: 500, zIndex: "1", position: "relative" }}
+          />
+        </div>
+      ) : (
+        ToDos.length > 0 && (
+          <Table
+            ToDos={ToDos}
+            handleChecked={handleChecked}
+            handleDelete={handleDelete}
+          />
+        )
       )}
-      <div className=" mb-44 pb-10">
-        <Calendar
-          localizer={localizer}
-          events={ToDos}
-          startAccessor="start"
-          endAccessor="end"
-          style={{ height: 500 }}
-        />
-      </div>
     </div>
   );
 };
-// Export the TodoList component as the default export of the module.
+
 export default TodoList;
