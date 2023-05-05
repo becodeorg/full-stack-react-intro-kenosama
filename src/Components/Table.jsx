@@ -15,9 +15,9 @@ const Table = ({ ToDos, handleChecked, handleDelete }) => {
     "bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-normal text-base border border-slate-500";
 
   //Deadline Calculator
-  function daysBeforeDeadline(endDate) {
+  function daysBeforeDeadline(end) {
     // Convertir la date en millisecondes depuis l'époque UNIX
-    const endTime = new Date(endDate).getTime();
+    const endTime = new Date(end).getTime();
     // Calculer le nombre de millisecondes entre la date de fin et aujourd'hui
     const timeDiff = endTime - Date.now();
     // Calculer le nombre de jours restants avant la date de fin
@@ -55,7 +55,7 @@ const Table = ({ ToDos, handleChecked, handleDelete }) => {
                 <input
                   type="checkbox"
                   value={todo.done}
-                  name={Slugify(todo.text)}
+                  name={Slugify(todo.title)}
                   id={todo.id}
                   onChange={() => handleChecked(index)}
                 />
@@ -75,7 +75,7 @@ const Table = ({ ToDos, handleChecked, handleDelete }) => {
                     textDecoration: todo.done ? "line-through" : "none",
                   }}
                 >
-                  {daysBeforeDeadline(todo.startDate)}
+                  {daysBeforeDeadline(todo.start)}
                 </span>
               </th>
               <th className={isEven(index) ? TrLight : TrDark}>
@@ -84,7 +84,7 @@ const Table = ({ ToDos, handleChecked, handleDelete }) => {
                     textDecoration: todo.done ? "line-through" : "none",
                   }}
                 >
-                  {daysBeforeDeadline(todo.endDate)}
+                  {daysBeforeDeadline(todo.end)}
                 </span>
               </th>
               <th>

@@ -1,10 +1,31 @@
-//importing the necessary dependencies from React
+//importing the necessary dependencies from frameworks or libraries
 import { useRef, useState, useEffect } from "react";
 import Slugify from "./Components/Shared/Slugify";
 import { v4 as uuidv4 } from "uuid";
 import Datepicker from "react-tailwindcss-datepicker";
 import Table from "./Components/Table.jsx";
-import Calendar from "./Components/Calendar.jsx";
+// import "react-big-calendar/lib/css/react-big-calendar.css";
+import "react-big-calendar/lib/sass/styles.scss";
+import { Calendar, dateFnsLocalizer } from "react-big-calendar";
+import format from "date-fns/format";
+import parse from "date-fns/parse";
+import startOfWeek from "date-fns/startOfWeek";
+import getDay from "date-fns/getDay";
+import enUS from "date-fns/locale/en-US";
+
+const locales = {
+  "en-US": enUS,
+};
+
+const localizer = dateFnsLocalizer({
+  format,
+  parse,
+  startOfWeek,
+  getDay,
+  locales,
+});
+
+
 
 const LSKEY = "MyTodoApp";
 //Creating the TodoList Component
@@ -62,11 +83,11 @@ const TodoList = () => {
 
     const id = uuidv4();
     const newToDos = {
-      text: todoText,
+      title: todoText,
       done: false,
       id: id,
-      startDate: startDate,
-      endDate: endDate,
+      start: startDate,
+      end: endDate,
     };
     setToDos([...ToDos, newToDos]);
 
@@ -129,7 +150,7 @@ const TodoList = () => {
             showFooter={false}
             displayFormat={"DD/MM/YYYY"}
             useRange={false}
-            asSingle={false} 
+            asSingle={false}
           />
           <div id="button" className=" self-center items-center mt-2">
             <button
@@ -148,8 +169,15 @@ const TodoList = () => {
           handleDelete={handleDelete}
         />
       )}
-
-      <Calendar />
+      <div className=" mb-44 pb-10">
+        <Calendar
+          localizer={localizer}
+          events={ToDos}
+          startAccessor="start"
+          endAccessor="end"
+          style={{ height: 500 }}
+        />
+      </div>
     </div>
   );
 };
